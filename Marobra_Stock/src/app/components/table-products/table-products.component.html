@@ -1,6 +1,6 @@
 <button id="add" (click)="addProduct()"> <b>Agregar Producto</b> </button>
 <table>
-    <thead>
+    <thead class="headTable">
         <tr id="cabeza">
             <th>Nombre</th>
             <th>Cantidad</th>
@@ -24,14 +24,6 @@
         </tr>
     </tbody>
 </table>
-
-<!-- 
-<div *ngIf="isdeleted" class="alert alert-success">
-    <h3>¿Estas seguro de eliminar el producto?</h3>
-    <button class="deleted" (click)="delete(deletedConfirmId)"> <b>Si</b></button>
-
-    <button class="noDeleted">No</button>
-</div> -->
 
 <ng-template #content let-modal>
     <div class="ng-template">

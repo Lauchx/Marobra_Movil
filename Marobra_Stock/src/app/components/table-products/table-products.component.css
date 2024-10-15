@@ -1,19 +1,20 @@
 table {
     border-collapse: collapse;
     overflow: hidden;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 50px;
     border-radius: 20px 10px;
     box-shadow: 0 0 1% rgba(100, 2, 2, 0.541);
     width: 90%;
     border: 0px;
+
 }
-
-
 
 button {
     height: 5%;
     border-radius: 50px;
-    display: flex;
     align-items: center;
     justify-content: center;
     margin: 5%;
@@ -79,8 +80,9 @@ th {
     transition: all 0.9s ease;
 }
 
-thead:hover {
-    box-shadow: inset 0 100px 0 0 #3c3c3c;
+thead .headTable:hover {
+    color: #000;
+    box-shadow: inset 0 100px 0 0 #fff;
 }
 
 tr:nth-child(even):hover {

@@ -1,25 +1,27 @@
-<div class="modal-header">
-    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal2()"></button>
-</div>
-<div class="modal-body">
-    <form (ngSubmit)="updateProduct()"> 
-        <h1>Actualizar Producto</h1>
-        <div>
-            <label >Nombre</label>
-            <input #nameInput id="nameUpdate" class="form-control" placeholder="Nuevo Nombre" value="{{product.name}}" name="name" required>
-            <label >Ancho</label>
-            <input #widthInput id="widthUpdate" class="form-control" placeholder="Nuevo Ancho" value="{{product.width}}" type="number" name="width" >
-            <label>Alto</label>
-            <input #heightInput id="heightUpdate" class="form-control" placeholder="Nuevo Alto" value="{{product.height}}" type="number" name="height" >
-            <label>Largo</label>
-            <input #lengthInput id="lengthUpdate" class="form-control" placeholder="Nuevo Largo" value="{{product.length}}" type="number" name="length" >
-            <label>Alta</label>
-            <input #inboundInput id="inboundUpdate" class="form-control" placeholder="Nuevo Entrante" type="number" name="inbound" value="product.stock.inbound" type="number" name="inbound" required>
-            <label>Baja</label>
-            <input #outboundInput id="outboundUpdate" class="form-control" placeholder="Nuevo Saliente" type="number" name="outbound" value="product.stock.outbound" type="number" name="outbound" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Actualizar</button> <!-- Botón para enviar -->
-    </form>
+<span class="span-modProd">
 
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal2()"></button>
+    </div>
+    <div class="modal-body">
+        <form (ngSubmit)="updateProduct()"> 
+            <h1>Actualizar Producto</h1>
+            <div>
+                <label >Nombre</label>
+                <input #nameInput id="nameUpdate" class="form-control" placeholder="Nuevo Nombre" value="{{product.name}}" name="name" required>
+                <label >Ancho</label>
+                <input #widthInput id="widthUpdate" class="form-control" placeholder="Nuevo Ancho" value="{{product.width}}" type="number" name="width" >
+                <label>Alto</label>
+                <input #heightInput id="heightUpdate" class="form-control" placeholder="Nuevo Alto" value="{{product.height}}" type="number" name="height" >
+                <label>Largo</label>
+                <input #lengthInput id="lengthUpdate" class="form-control" placeholder="Nuevo Largo" value="{{product.length}}" type="number" name="length" >
+                <label>Alta</label>
+                <input #inboundInput id="inboundUpdate" class="form-control" placeholder="Nuevo Entrante" type="number" name="inbound" value="product.stock.inbound" type="number" name="inbound" required>
+                <label>Baja</label>
+                <input #outboundInput id="outboundUpdate" class="form-control" placeholder="Nuevo Saliente" type="number" name="outbound" value="product.stock.outbound" type="number" name="outbound" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar</button> <!-- Botón para enviar -->
+        </form>
+        
 </div>
-
+</span>

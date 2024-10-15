@@ -15,6 +15,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class AddProductsComponent {
   constructor(private activeModal: NgbActiveModal, private crudService: CrudService, private toastr: ToastrService, private formBuilder: FormBuilder) { }
   public productForm: FormGroup;
+  public isDisabled: boolean
   ngOnInit() {
     this.productForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -26,6 +27,7 @@ export class AddProductsComponent {
   }
 
   addProduct(): void {
+    this.isDisabled = true
     console.log(this.productForm.controls['name'].errors)
     console.log(this.productForm.controls['width'].errors);
     console.log(this.productForm.controls['height'].errors);
@@ -40,6 +42,7 @@ export class AddProductsComponent {
             this.toastr.success('Agregaste el producto', 'Exito')
             setTimeout(() => {
               this.activeModal.close(true);
+              this.isDisabled = false;
             }, 500)
           }
         },
@@ -49,11 +52,13 @@ export class AddProductsComponent {
             timeOut: 3000,
             positionClass: 'toast-top-right'
           })
+          this.isDisabled = false;
         }
       });
     }
     else {
       this.toastr.error('Por favor, completa todos los campos. Los campos numéricos deben ir el positivo', 'Error')
+      this.isDisabled = false;
     }
   }
 
