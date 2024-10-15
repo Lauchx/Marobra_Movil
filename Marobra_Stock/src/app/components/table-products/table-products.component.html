@@ -1,0 +1,46 @@
+<button id="add" (click)="addProduct()"> <b>Agregar Producto</b> </button>
+<table>
+    <thead>
+        <tr id="cabeza">
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Ancho</th>
+            <th>Alto</th>
+            <th>Largo</th>
+            <th>Eliminar</th>
+            <th>Actualizar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let Product of productsList" id="{{Product.id}}">
+            <td class="prod-name"><b>{{Product.name}}</b></td>
+            <td><b>{{Product.stock.quantity}}</b></td>
+            <td>{{Product.width}}</td>
+            <td>{{Product.height}}</td>
+            <td>{{Product.length}}</td>
+            <td><button id="delete" class="btn-outline-primary"
+                    (click)="Product.id ? confirmDelete(Product.id, content) : null"><b>X</b></button></td>
+            <td><button id="update" (click)="Product.id ? getById(Product.id): null"><b>⟳</b></button></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- 
+<div *ngIf="isdeleted" class="alert alert-success">
+    <h3>¿Estas seguro de eliminar el producto?</h3>
+    <button class="deleted" (click)="delete(deletedConfirmId)"> <b>Si</b></button>
+
+    <button class="noDeleted">No</button>
+</div> -->
+
+<ng-template #content let-modal>
+    <div class="ng-template">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">¿Estas seguro de eliminar el producto?</h4>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" (click)="modal.close('confirm')">Si</button>
+            <button type="button" class="btn  btn-danger" (click)="modal.close('cancel')">No</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,9 @@
+.toast-success {
+    background-color: #28a745 !important; /* Verde para éxito */
+  }
+  
+  .toast-error {
+    background-color: #dc3545 !important; /* Rojo para error */
+  }
+
+  

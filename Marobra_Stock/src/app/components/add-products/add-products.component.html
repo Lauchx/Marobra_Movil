@@ -1,0 +1,23 @@
+<div id="all">
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="productForm" >
+            <div class="modal-body container-fluid">
+                <h1><b>Agregar Producto</b></h1>
+                <div>
+                    <input id="name" formControlName="name" class="form-control" placeholder="Nombre" type="text" required>
+                    <input id="width" formControlName="width" class="form-control" placeholder="Ancho" type="number" required>
+                    <input id="height" formControlName="height" class="form-control" placeholder="Alto" type="number" required>
+                    <input id="length" formControlName="length" class="form-control" placeholder="Largo" type="number" required>
+                    <input id="currentQ" formControlName="currentQ" class="form-control" placeholder="Cantidad Actual" type="number" required>
+    
+                </div>
+            </div> 
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary"  (click)="addProduct()" ><b>Agregar</b></button>
+    </div>
+</div>

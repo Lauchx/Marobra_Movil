@@ -1,0 +1,40 @@
+input {
+    margin-bottom: 15px;
+    background: linear-gradient(-7deg, rgba(255, 0, 0, 0.363), rgba(109, 0, 0, 0.274));
+    border: 2px outset #d42828;
+}
+
+
+input:valid {
+    background: linear-gradient(-7deg, rgba(60, 255, 0, 0.299), rgba(0, 109, 0, 0.104));
+    border: 2px outset #45d428;
+}
+
+input:focus:valid {
+    background: linear-gradient(-7deg, rgba(60, 255, 0, 0.299), rgba(0, 109, 0, 0.104));
+    border: 2px outset #45d428;
+}
+
+#all{
+    background-color: #e7e7e7;
+    border-radius: 8px; /* Opcional: bordes redondeados */
+    box-shadow:  0 0px 20px rgb(0, 0, 0);
+    overflow: hidden;
+    margin: 0 auto;
+    
+}
+.modal-header{
+    border: 2px outset rgba(0, 0, 0, 0.24);
+    background-color: rgba(128, 128, 128, 0.144);
+}
+
+.modal-footer{
+    border: 2px outset rgba(0, 0, 0, 0.24);
+    background-color: rgba(128, 128, 128, 0.144);
+}
+.btn{
+    background-color: rgba(255, 230, 0, 0.904);
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
+
+}
