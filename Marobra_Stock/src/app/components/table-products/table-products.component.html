@@ -18,9 +18,9 @@
             <td>{{Product.width}}</td>
             <td>{{Product.height}}</td>
             <td>{{Product.length}}</td>
-            <td><button id="delete" class="btn-outline-primary"
+            <td><button id="delete" class="btn"
                     (click)="Product.id ? confirmDelete(Product.id, content) : null"><b>X</b></button></td>
-            <td><button id="update" (click)="Product.id ? getById(Product.id): null"><b>⟳</b></button></td>
+            <td><button id="update" class="btn" (click)="Product.id ? getById(Product.id): null"><b>⟳</b></button></td>
         </tr>
     </tbody>
 </table>
@@ -31,8 +31,8 @@
             <h4 class="modal-title" id="modal-basic-title">¿Estas seguro de eliminar el producto?</h4>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-primary" (click)="modal.close('confirm')">Si</button>
-            <button type="button" class="btn  btn-danger" (click)="modal.close('cancel')">No</button>
+            <button type="button" class="btn btn-confirm" (click)="modal.close('confirm')">Si</button>
+            <button type="button" class="btn btn-cancel" (click)="modal.close('cancel')">No</button>
         </div>
     </div>
 </ng-template>

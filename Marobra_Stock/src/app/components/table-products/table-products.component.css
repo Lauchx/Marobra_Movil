@@ -123,6 +123,27 @@ td {
     color: #fff;
 }
 
+.btn-confirm {
+    color: #f1f1f1;
+    border-radius: 20px 10px;
+    background: red;
+}
+
+.btn-cancel {
+    background: transparent;
+    border-radius: 10px 5px;
+    color: #fff;
+    border: 0px;
+    transition: all 0.9 ease-in-out;
+}
+
+.btn-cancel:hover {
+    color: #444;
+    box-shadow: inset 100px 0 0 0 #f1f1f1;
+}
+.modal-header, .modal-footer{
+    border: 0px;
+}
 @media (max-width: 600px) {
 
     th,

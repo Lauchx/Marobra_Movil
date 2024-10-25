@@ -5,11 +5,12 @@ input {
     color: white;
     transition: all 0.9 ease;
 }
+
 .form-control:focus {
-    border: 1px solid #f1f1f1; 
-    box-shadow: none; 
+    border: 1px solid #f1f1f1;
+    box-shadow: none;
     outline: none;
-  }
+}
 
 input:valid {
     background: linear-gradient(-7deg, rgba(60, 255, 0, 0.700), rgba(3, 255, 3, 0.7));
@@ -17,40 +18,43 @@ input:valid {
 }
 
 input:focus:valid {
-    color: #f1f1f1; 
+    color: #f1f1f1;
     background: linear-gradient(-7deg, rgba(60, 255, 0, 0.771), rgba(1, 209, 1, 0.716));
     border: 2px outset #45d428;
 }
-input::placeholder{
+
+input::placeholder {
     color: #f1f1f1;
     opacity: 80%;
 }
 
-#all{
+#all {
     background: #333;
-    border-radius: 8px; /* Opcional: bordes redondeados */
-    box-shadow:  0 0px 20px rgb(0, 0, 0);
+    border-radius: 8px;
+    box-shadow: 0 0px 20px rgb(0, 0, 0);
     overflow: hidden;
     margin: 0 auto;
     color: #f1f1f1;
 }
-.modal-header{
+
+.modal-header {
     border: 2px outset rgba(0, 0, 0, 0.24);
     background-color: rgba(128, 128, 128, 0.144);
 }
 
-.modal-footer{
+.modal-footer {
     border: 2px outset rgba(0, 0, 0, 0.24);
     background-color: rgba(128, 128, 128, 0.144);
 }
-.btn{
+
+.btn {
     background: transparent;
     color: #fff;
-    
-    border: 0px ;
+    border: 0px;
     transition: all 0.9 ease-in-out;
 }
-.btn:hover{
+
+.btn:hover {
     color: #444;
     box-shadow: inset 100px 0 0 0 #f1f1f1;
 }
