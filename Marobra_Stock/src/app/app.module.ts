@@ -10,13 +10,17 @@ import { ModProductComponent } from './components/mod-products/mod-products.comp
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { SaleProductsComponent } from './components/sale-products/sale-products.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableProductsComponent,
     AddProductsComponent,
-    ModProductComponent
+    ModProductComponent,
+    SaleProductsComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

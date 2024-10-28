@@ -1,0 +1,24 @@
+ul{ 
+    display: flex;
+    background: #333;
+    box-shadow: 0px 5px 25px 10px rgba(0, 0, 0, 0.5);
+}
+li{
+    list-style: none;
+    padding: 10px;
+    transition: background 0.9s ease, color 0.9s ease;
+}
+li:hover{
+    background: #f1f1f1f1;
+}
+li:hover > a{
+    color: #333;
+}
+a{
+    color: #f1f1f1f1;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-decoration: none;
+}

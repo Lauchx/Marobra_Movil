@@ -1,15 +1,14 @@
 
-<button id="add" (click)="addProduct()"> <b>Agregar Producto</b> </button>
+
+<button id="add" (click)="addProduct()"> <b>Agregar Producto Vendido</b> </button>
 <table>
     <thead class="headTable">
         <tr id="cabeza">
+            <th>Código</th>
             <th>Nombre</th>
-            <th>Cantidad</th>
-            <th>Ancho</th>
-            <th>Alto</th>
-            <th>Largo</th>
-            <th>Actualizar</th>
+            <th>Cantidad a vender</th>
             <th>Eliminar</th>
+            <th>Actualizar</th>
         </tr>
     </thead>
     <tbody>
@@ -19,8 +18,9 @@
             <td>{{Product.width}}</td>
             <td>{{Product.height}}</td>
             <td>{{Product.length}}</td>
+            <td><button id="delete" class="btn"
+                    (click)="Product.id ? confirmDelete(Product.id, content) : null"><b>X</b></button></td>
             <td><button id="update" class="btn" (click)="Product.id ? getById(Product.id): null"><b>⟳</b></button></td>
-            <td><button id="delete" class="btn"(click)="Product.id ? confirmDelete(Product.id, content) : null"><b>X</b></button></td>
         </tr>
     </tbody>
 </table>

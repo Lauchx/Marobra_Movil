@@ -1,0 +1,154 @@
+table {
+    border-collapse: collapse;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    margin-bottom: 50px;
+    border-radius: 20px 10px;
+    box-shadow: 0 0 1% rgba(100, 2, 2, 0.541);
+    width: 90%;
+    border: 0px;
+
+}
+
+button {
+    height: 5%;
+    border-radius: 50px;
+    align-items: center;
+    justify-content: center;
+    margin: 5%;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.10);
+}
+
+#delete {
+    background-color: #ff2b2bb7;
+    color: rgb(0, 0, 0);
+    box-shadow: 0 0 1% rgba(0, 0, 0, 0.37);
+    margin-right: 20px;
+}
+
+#delete:hover {
+    background: rgb(255, 0, 0);
+    color: rgb(255, 230, 230);
+}
+
+#add {
+    padding: 1% 2%;
+    border-radius: 20px 10px;
+    background: #0d0d0d71;
+    color: #fff;
+    border: 0px;
+    box-shadow: 0 0 1% rgb(0, 0, 0);
+    transition: all 0.7s ease;
+}
+
+#add:hover {
+    color: #000;
+    box-shadow: inset 0 100px 0 0 #fafafa;
+}
+
+#update {
+    background-color: rgba(52, 146, 254, 0.781);
+    background: #1babff71;
+    color: rgb(0, 0, 0);
+    box-shadow: 0 0 1% rgba(0, 0, 0, 0.37);
+    margin-right: 20px;
+
+}
+
+#update:hover {
+    background-color: rgb(0, 119, 255);
+    color: rgb(255, 230, 230);
+}
+
+tbody {
+    text-align: center;
+}
+
+th {
+    background: #0d0d0d71;
+    color: #fff;
+    text-align: center;
+    padding: 0.5rem;
+    white-space: nowrap;
+    min-width: auto;
+    transition: all 0.9s ease;
+}
+
+thead .headTable:hover {
+    color: #000;
+    box-shadow: inset 0 100px 0 0 #fff;
+}
+
+tr:nth-child(even):hover {
+    box-shadow: inset 0 100px 0 0 #b7e8ff;
+}
+
+tr:nth-child(odd):hover {
+    box-shadow: inset 0 100px 0 0 #f3b7f7;
+}
+
+tr {
+    box-shadow: 20 20 20 20 #444;
+    background: #fbacf471;
+    transition: all 0.4s ease;
+}
+
+input {
+    align-items: center;
+    margin: 3%;
+    border-radius: 10%;
+}
+
+tfoot {
+    background: rgb(245, 245, 245);
+}
+
+td {
+    margin: 2%;
+    padding: 1.5%;
+}
+
+.prod-name {
+    word-wrap: break-word;
+}
+
+.ng-template {
+    background: #333;
+    color: #fff;
+}
+
+.btn-confirm {
+    color: #f1f1f1;
+    border-radius: 20px 10px;
+    background: red;
+}
+
+.btn-cancel {
+    background: transparent;
+    border-radius: 10px 5px;
+    color: #fff;
+    border: 0px;
+    transition: all 0.9 ease-in-out;
+}
+
+.btn-cancel:hover {
+    color: #444;
+    box-shadow: inset 100px 0 0 0 #f1f1f1;
+}
+.modal-header, .modal-footer{
+    border: 0px;
+}
+@media (max-width: 600px) {
+
+    th,
+    td {
+        font-size: 3vw;
+        padding: 3%;
+    }
+}
