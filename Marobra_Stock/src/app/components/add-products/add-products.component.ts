@@ -14,8 +14,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export class AddProductsComponent {
   constructor(private activeModal: NgbActiveModal, private crudService: CrudService, private toastr: ToastrService, private formBuilder: FormBuilder) { }
-  public productForm: FormGroup;
+  public productForm: FormGroup
   public isDisabled: boolean
+  //private url = "https://api-stockmarobra.onrender.com/products"
+  private url = "http://localhost:3000/products"
   ngOnInit() {
     this.productForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -34,10 +36,8 @@ export class AddProductsComponent {
     console.log(this.productForm.controls['length'].errors);
     console.log(this.productForm.controls['currentQ'].errors);
     if (this.productForm.valid) {
-      this.crudService.add().subscribe({
-        next: (response) => {
-          console.log(response.status)
-          console.log("entrop")
+      this.crudService.add(this.url).subscribe({
+        next: (response) => { 
           if (response.status >= 200 && response.status <= 299) {
             this.toastr.success('Agregaste el producto', 'Exito')
             setTimeout(() => {
@@ -47,7 +47,7 @@ export class AddProductsComponent {
           }
         },
         error: (error) => {
-          const errorMessage = error.error?.message || 'No se pudo agregar el producto';
+          const errorMessage = error?.message || 'No se pudo agregar el producto';
           this.toastr.error(errorMessage, 'Error', {
             timeOut: 3000,
             positionClass: 'toast-top-right'

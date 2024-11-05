@@ -12,15 +12,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let Product of productsList" id="{{Product.id}}">
-            <td class="prod-name"><b>{{Product.name}}</b></td>
-            <td><b>{{Product.stock.quantity}}</b></td>
-            <td>{{Product.width}}</td>
-            <td>{{Product.height}}</td>
-            <td>{{Product.length}}</td>
+        <tr *ngFor="let productSold of productsList" id="{{productSold.id}}">
+            <td>{{productSold.product_id}}</td>
+            <td class="prod-name"><b>{{productSold.product.name}}</b></td>
+            <td><b>{{productSold.stock.outbound}}</b></td>
             <td><button id="delete" class="btn"
-                    (click)="Product.id ? confirmDelete(Product.id, content) : null"><b>X</b></button></td>
-            <td><button id="update" class="btn" (click)="Product.id ? getById(Product.id): null"><b>⟳</b></button></td>
+                    (click)="productSold.id ? confirmDelete(productSold.id, content) : null"><b>X</b></button></td>
+            <td><button id="update" class="btn" (click)="productSold.id ? getById(productSold.id): null"><b>⟳</b></button></td>
         </tr>
     </tbody>
 </table>

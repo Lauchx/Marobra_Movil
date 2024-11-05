@@ -14,15 +14,18 @@ import { ModProductComponent } from '../mod-products/mod-products.component';
 })
 export class TableProductsComponent {
   public productsList: Product[] = []
+  //private url = "https://api-stockmarobra.onrender.com/products"
+  private url = "http://localhost:3000/products"
   constructor(private ngModal: NgbModal, private crudService: CrudService) { }
 
 
   addProduct(): void {
     const ngModal = this.ngModal.open(AddProductsComponent, { backdrop: 'static' });
     ngModal.result.then(resultado => {
-      if (resultado == true) {
-        this.crudService.get().subscribe(response => {
-          this.productsList = response
+      if (resultado) {
+        console.log("this")
+        this.crudService.get(this.url).subscribe(response => {
+          this.productsList = response.products
         })
       } else {
 
@@ -30,9 +33,9 @@ export class TableProductsComponent {
     })
   }
   ngOnInit() {
-    this.crudService.get().subscribe(response => {
+    this.crudService.get(this.url).subscribe(response => {
       console.log(response)
-      this.productsList = response
+      this.productsList = response.products
     })
   }
   confirmDelete(id: string, content: TemplateRef<any>) {
@@ -48,23 +51,23 @@ export class TableProductsComponent {
     })
   }
   delete(id: string): void {
-    this.crudService.delete(id).subscribe(response => {
-      this.crudService.get().subscribe(res => {
-        this.productsList = res
+    this.crudService.delete(id, this.url).subscribe(response => {
+      this.crudService.get(this.url).subscribe(response => {
+        this.productsList = response.products
       })
     })
   }
   getById(id: string): void {
-    this.crudService.getById(id).subscribe(response => {
+    this.crudService.getById(id, this.url).subscribe(response => {
       const ngModal = this.ngModal.open(ModProductComponent, { backdrop: 'static' })
 
       if (response != null) {
-        ngModal.componentInstance.product = response
+        ngModal.componentInstance.product = response.product
 
         ngModal.result.then(resultado => {
           if (resultado == true) {
-            this.crudService.get().subscribe(response => {
-              this.productsList = response
+            this.crudService.get(this.url).subscribe(response => {
+              this.productsList = response.products
             })
           } else {
             console.log("El modal no se cerró correctamente")

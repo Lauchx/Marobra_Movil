@@ -1,4 +1,3 @@
-
 <button id="add" (click)="addProduct()"> <b>Agregar Producto</b> </button>
 <table>
     <thead class="headTable">
@@ -15,12 +14,13 @@
     <tbody>
         <tr *ngFor="let Product of productsList" id="{{Product.id}}">
             <td class="prod-name"><b>{{Product.name}}</b></td>
-            <td><b>{{Product.stock.quantity}}</b></td>
+            <td><b>{{Product.stock.current_quantity}}</b></td>
             <td>{{Product.width}}</td>
             <td>{{Product.height}}</td>
             <td>{{Product.length}}</td>
             <td><button id="update" class="btn" (click)="Product.id ? getById(Product.id): null"><b>⟳</b></button></td>
-            <td><button id="delete" class="btn"(click)="Product.id ? confirmDelete(Product.id, content) : null"><b>X</b></button></td>
+            <td><button id="delete" class="btn"
+                    (click)="Product.id ? confirmDelete(Product.id, content) : null"><b>X</b></button></td>
         </tr>
     </tbody>
 </table>

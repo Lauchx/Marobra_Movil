@@ -1,5 +1,6 @@
 import { Component, TemplateRef } from '@angular/core';
-import { Product } from '../../modules/products';
+import { productSold } from '../../modules/productSold';
+import { CrudService } from '../../services/crud.service';
 
 @Component({
   selector: 'app-sale-products',
@@ -7,7 +8,16 @@ import { Product } from '../../modules/products';
   styleUrl: './sale-products.component.css'
 })
 export class SaleProductsComponent {
-  public productsList: Product[] = []
+  public productsList: productSold[] = []
+  private url = "http://localhost:3000/productsSold"
+  constructor(private crudService: CrudService){}
+
+  ngOnInit() {
+    this.crudService.get(this.url).subscribe(response => {
+      console.log(response)
+      this.productsList = response.productSold
+    })
+  }
   addProduct() { }
   confirmDelete(id: string, content: TemplateRef<any>) { }
   getById(id: string) { }
