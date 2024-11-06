@@ -30,11 +30,6 @@ export class AddProductsComponent {
 
   addProduct(): void {
     this.isDisabled = true
-    console.log(this.productForm.controls['name'].errors)
-    console.log(this.productForm.controls['width'].errors);
-    console.log(this.productForm.controls['height'].errors);
-    console.log(this.productForm.controls['length'].errors);
-    console.log(this.productForm.controls['currentQ'].errors);
     if (this.productForm.valid) {
       this.crudService.add(this.url).subscribe({
         next: (response) => { 

@@ -1,24 +1,23 @@
-
-
-<button id="add" (click)="addProduct()"> <b>Agregar Producto Vendido</b> </button>
+<button id="add" (click)="productSold(addproductSold)"> <b>Agregar Producto Vendido</b> </button>
 <table>
     <thead class="headTable">
         <tr id="cabeza">
             <th>Código</th>
             <th>Nombre</th>
-            <th>Cantidad a vender</th>
+            <th>Cantidad vendida</th>
             <th>Eliminar</th>
             <th>Actualizar</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let productSold of productsList" id="{{productSold.id}}">
+        <tr *ngFor="let productSold of productsSoldList" id="{{productSold.id}}">
             <td>{{productSold.product_id}}</td>
             <td class="prod-name"><b>{{productSold.product.name}}</b></td>
             <td><b>{{productSold.stock.outbound}}</b></td>
             <td><button id="delete" class="btn"
                     (click)="productSold.id ? confirmDelete(productSold.id, content) : null"><b>X</b></button></td>
-            <td><button id="update" class="btn" (click)="productSold.id ? getById(productSold.id): null"><b>⟳</b></button></td>
+            <td><button id="update" class="btn"
+                    (click)="productSold.id ? getById(productSold.id): null"><b>⟳</b></button></td>
         </tr>
     </tbody>
 </table>
@@ -31,6 +30,33 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-confirm" (click)="modal.close('confirm')">Si</button>
             <button type="button" class="btn btn-cancel" (click)="modal.close('cancel')">No</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #addproductSold let-modal>
+    <div id="all">
+        <div class="modal-header">
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.close(false)"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="productForm">
+                <div class="modal-body container-fluid">
+                    <h1><b>Agregar Producto</b></h1>
+                    <div>
+                        <p-dropdown [ngStyle]="{background:'var(--gray-800-bg)'}"     [options]="productsList" optionLabel="name" [showClear]="true" filter="true"
+                            [filterBy]="'name,id'" placeholder="Select a product"></p-dropdown>
+
+                        <input id="inbound" formControlName="inbound" class="form-control"
+                            placeholder="Cantidad De ventas" type="number" required>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" [disabled]="isDisabled"
+                (click)="addProductSold()"><b>Agregar</b></button>
         </div>
     </div>
 </ng-template>

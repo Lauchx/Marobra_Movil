@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { TableProductsComponent } from './components/table-products/table-products.component';
 import { AddProductsComponent } from './components/add-products/add-products.component';
 import { ModProductComponent } from './components/mod-products/mod-products.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ToastrModule } from 'ngx-toastr';
 import { SaleProductsComponent } from './components/sale-products/sale-products.component';
 import { HeaderComponent } from './components/header/header.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,12 @@ import { HeaderComponent } from './components/header/header.component';
     HttpClientModule, 
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
-    FormsModule
+    FormsModule,
+    DropdownModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

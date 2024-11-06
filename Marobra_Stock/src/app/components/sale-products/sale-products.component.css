@@ -152,3 +152,68 @@ td {
         padding: 3%;
     }
 }
+/* Estilos de modales */
+
+input {
+    margin-bottom: 15px;
+    background: linear-gradient(-7deg, rgba(255, 0, 0, 0.700), rgba(255, 1, 1, 0.492));
+    border: 0px;
+    color: white;
+    transition: all 0.9 ease;
+}
+
+.form-control:focus {
+    border: 1px solid #f1f1f1;
+    box-shadow: none;
+    outline: none;
+}
+
+input:valid {
+    background: linear-gradient(-7deg, rgba(60, 255, 0, 0.700), rgba(3, 255, 3, 0.7));
+    border: 2px outset #45d428;
+}
+
+input:focus:valid {
+    color: #f1f1f1;
+    background: linear-gradient(-7deg, rgba(60, 255, 0, 0.771), rgba(1, 209, 1, 0.716));
+    border: 2px outset #45d428;
+}
+
+input::placeholder {
+    color: #f1f1f1;
+    opacity: 80%;
+}
+
+#all {
+    background: #333;
+    border-radius: 8px;
+    box-shadow: 0 0px 20px rgb(0, 0, 0);
+    overflow: hidden;
+    color: #f1f1f1;
+}
+
+.modal-header {
+    border: 2px outset #0000003d;
+    background-color: #80808025;
+}
+
+.modal-footer {
+    border: 2px outset #0000003d;
+    background-color: #80808025;
+}
+
+.btn {
+    background: transparent;
+    color: #fff;
+    border: 0px;
+    transition: all 0.9 ease-in-out;
+}
+
+.btn:hover {
+    color: #444;
+    box-shadow: inset 100px 0 0 0 #f1f1f1;
+}
+
+.p-dropdown{
+    background: #333;
+}

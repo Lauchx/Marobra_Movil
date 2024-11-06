@@ -2,6 +2,7 @@
 <table>
     <thead class="headTable">
         <tr id="cabeza">
+            <th>Código</th>
             <th>Nombre</th>
             <th>Cantidad</th>
             <th>Ancho</th>
@@ -13,14 +14,14 @@
     </thead>
     <tbody>
         <tr *ngFor="let Product of productsList" id="{{Product.id}}">
+            <td>{{Product.id}}</td>
             <td class="prod-name"><b>{{Product.name}}</b></td>
             <td><b>{{Product.stock.current_quantity}}</b></td>
             <td>{{Product.width}}</td>
             <td>{{Product.height}}</td>
             <td>{{Product.length}}</td>
             <td><button id="update" class="btn" (click)="Product.id ? getById(Product.id): null"><b>⟳</b></button></td>
-            <td><button id="delete" class="btn"
-                    (click)="Product.id ? confirmDelete(Product.id, content) : null"><b>X</b></button></td>
+            <td><button id="delete" class="btn" (click)="Product.id ? confirmDelete(Product.id, content) : null"><b>X</b></button></td>
         </tr>
     </tbody>
 </table>
