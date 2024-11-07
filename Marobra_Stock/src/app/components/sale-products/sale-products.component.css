@@ -215,5 +215,8 @@ input::placeholder {
 }
 
 .p-dropdown{
-    background: #333;
+   width: 100%;
+   text-align: center;
+   align-items: center;
+   background: green;
 }

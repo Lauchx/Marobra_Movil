@@ -3,6 +3,8 @@ import { CrudService } from '../../services/crud.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Stock } from '../../modules/stock';
+import { Product } from '../../modules/products';
 
 
 @Component({
@@ -31,8 +33,16 @@ export class AddProductsComponent {
   addProduct(): void {
     this.isDisabled = true
     if (this.productForm.valid) {
-      this.crudService.add(this.url).subscribe({
-        next: (response) => { 
+      let stock = new Stock();
+      stock.current_quantity = parseInt((document.getElementById("currentQ") as HTMLInputElement)?.value)
+      let product = new Product()
+      product.name = (document.getElementById("name") as HTMLInputElement)?.value
+      product.width = parseFloat((document.getElementById("width") as HTMLInputElement)?.value)
+      product.height = parseFloat((document.getElementById("height") as HTMLInputElement)?.value)
+      product.length = parseFloat((document.getElementById("length") as HTMLInputElement)?.value)
+      product.stock = stock
+      this.crudService.add(this.url, product).subscribe({
+        next: (response) => {
           if (response.status >= 200 && response.status <= 299) {
             this.toastr.success('Agregaste el producto', 'Exito')
             setTimeout(() => {

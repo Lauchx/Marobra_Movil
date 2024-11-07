@@ -36,8 +36,8 @@ export class ModProductComponent {
     this.product.width = widthValue ? Number(widthValue) : this.product.width
     this.product.height = heightValue ? Number(heightValue) : this.product.height
     this.product.length = lengthValue ? Number(lengthValue) : this.product.length
-    const inbound = inboundValue ? Number(inboundValue) : 0//this.product.stock.inbound
-    const outbound = outboundValue ? Number(outboundValue) : 0 //this.product.stock.outbound
+    const inbound = inboundValue ? Number(inboundValue) : 0
+    const outbound = outboundValue ? Number(outboundValue) : 0 
     const quantity = Number((this.product.stock.current_quantity + inbound!) - outbound!)
     console.log(quantity)
     if (quantity >= 0) {
