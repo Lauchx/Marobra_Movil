@@ -46,12 +46,14 @@ export class TableProductsComponent {
         this.delete(id)
       }else{
         // AQUI QUIERO CERRAR EL MODAL
+        console.log("hola")
         modalNg.dismiss()
       }
     })
   }
   delete(id: string): void {
     this.crudService.delete(id, this.url).subscribe(response => {
+      console.log(response, "gg")
       this.crudService.get(this.url).subscribe(response => {
         this.productsList = response.products
       })

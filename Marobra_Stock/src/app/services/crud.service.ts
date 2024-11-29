@@ -14,7 +14,6 @@ export class CrudService {
   constructor(private http: HttpClient) { }
 
   add(url: string, product: Object): Observable<any> {
-    
     return this.http.post(url, product, { observe: 'response' })
   }
 
