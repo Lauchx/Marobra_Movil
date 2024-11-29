@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TableProductsComponent } from './components/table-products/table-products.component';
 import { SaleProductsComponent } from './components/sale-products/sale-products.component';
+import { HistoricalComponent } from './components/historical/historical.component';
 
 const routes: Routes = [
   { path: '', component: SaleProductsComponent },
   { path: 'products', component: TableProductsComponent },  
-  //{ path: 'contact', component: historical },
+  { path: 'historical', component: HistoricalComponent },
  // { path: '**', redirectTo: '', pathMatch: 'full' } F
 ];
 

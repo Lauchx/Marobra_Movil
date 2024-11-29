@@ -24,6 +24,7 @@ export class SaleProductsComponent {
 
   ngOnInit() {
     this.crudService.get(this.url).subscribe(response => {
+      console.log(response)
       this.productsSoldList = response.productSold
     })
     this.crudService.get(this.urlp).subscribe(response => {
@@ -37,7 +38,42 @@ export class SaleProductsComponent {
 
   // myControl = new FormControl();
 
-  confirmDelete(id: string, content: TemplateRef<any>) { }
+   confirmDelete(id: string, content: TemplateRef<any>, productSold: ProductSold) {
+    console.log(id)
+    const modalNg = this.ngModal.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: 'static' });
+    modalNg.result.then(result => {
+      if (result === 'confirm') {
+         this.updateProduct(productSold)
+         this.delete(id)
+      } else {
+        // AQUI QUIERO CERRAR EL MODAL
+        modalNg.dismiss()
+      }
+    })
+  }
+
+  updateProduct(productSold: ProductSold){
+    console.log(productSold, "NOT")
+    this.crudService.getById(productSold.product_id.toString(), this.urlp).subscribe(response =>{
+    response.product.stock.outbound -= productSold.stock.outbound!
+    response.product.stock.current_quantity += productSold.stock.outbound
+   
+   console.log(productSold, "MODIFIED")
+    this.crudService.upgrade(response.product, this.urlp).subscribe(response =>{
+        console.log(response, "RP")
+    })
+  })
+  }
+
+  delete(id: string){
+    this.crudService.delete(id, this.url).subscribe(response => {
+      console.log(response)
+      this.toastr.success('Producto eliminado con éxito')
+      this.crudService.get(this.url).subscribe(response =>{
+        this.productsSoldList = response.productSold
+      })
+    })
+  }
 
   getById(id: string) { }
 
@@ -52,6 +88,8 @@ export class SaleProductsComponent {
       }
     })
   }
+
+
   addProductSold() {
     try {
       console.log(this.selectProduct)
@@ -68,8 +106,7 @@ export class SaleProductsComponent {
           this.selectProduct.stock.current_quantity = current_quantity
           this.crudService.upgrade(this.selectProduct, this.urlp).subscribe(response => { })
           const ifExistPS = this.productsSoldList.filter(productSold => productSold.product.id === this.selectProduct.id)
-
-          if (ifExistPS == null) {
+          if (ifExistPS.length === 0) {
             let date = new Date()
             const isoDate = date.toISOString()
             const productSold = {
@@ -105,12 +142,12 @@ export class SaleProductsComponent {
                   this.isDisabledAdd = false;
                 }
               })
-          }else{
+          } else {
             ifExistPS[0].stock.outbound += outbound
             ifExistPS[0].stock.current_quantity = current_quantity
 
             // codigo  para actualizar
-            this.crudService.upgradeProductSold(ifExistPS[0], this.url).subscribe(response =>{
+            this.crudService.upgradeProductSold(ifExistPS[0], this.url).subscribe(response => {
               console.log("h")
               console.log(response)
               if (response.status >= 200 && response.status <= 299) {

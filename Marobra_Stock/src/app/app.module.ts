@@ -14,6 +14,7 @@ import { SaleProductsComponent } from './components/sale-products/sale-products.
 import { HeaderComponent } from './components/header/header.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { DropdownModule } from 'primeng/dropdown';
+import { HistoricalComponent } from './components/historical/historical.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DropdownModule } from 'primeng/dropdown';
     AddProductsComponent,
     ModProductComponent,
     SaleProductsComponent,
-    HeaderComponent
+    HeaderComponent,
+    HistoricalComponent
   ],
   imports: [
     BrowserModule,
