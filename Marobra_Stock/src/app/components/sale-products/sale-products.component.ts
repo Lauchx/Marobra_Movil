@@ -35,9 +35,6 @@ export class SaleProductsComponent {
       outbound: ['', [Validators.required, Validators.min(0)]],
     })
   }
-
-  // myControl = new FormControl();
-
    confirmDelete(id: string, content: TemplateRef<any>, productSold: ProductSold) {
     console.log(id)
     const modalNg = this.ngModal.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: 'static' });
@@ -57,8 +54,11 @@ export class SaleProductsComponent {
     this.crudService.getById(productSold.product_id.toString(), this.urlp).subscribe(response =>{
     response.product.stock.outbound -= productSold.stock.outbound!
     response.product.stock.current_quantity += productSold.stock.outbound
-   
-   console.log(productSold, "MODIFIED")
+    response.product.width = Number(response.product.width)
+    response.product.height = Number(response.product.height)
+    response.product.length = Number(response.product.length)
+
+   console.log(response.product, "MODIFIED")
     this.crudService.upgrade(response.product, this.urlp).subscribe(response =>{
         console.log(response, "RP")
     })
