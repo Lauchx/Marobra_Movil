@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import { ProductSold } from '../../modules/productSold';
 import { CrudService } from '../../services/crud.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -18,8 +18,11 @@ export class SaleProductsComponent {
   public isDisabledAdd: boolean
   public productForm: FormGroup
   public selectProduct: Product
+  public productSoldModal: ProductSold
   private url = "http://localhost:3000/productsSold"
   private urlp = "http://localhost:3000/products"
+
+  @ViewChild('errorInput') errorInput:  ElementRef
   constructor(private crudService: CrudService, private formBuilder: FormBuilder, private ngModal: NgbModal, private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -35,13 +38,13 @@ export class SaleProductsComponent {
       outbound: ['', [Validators.required, Validators.min(0)]],
     })
   }
-   confirmDelete(id: string, content: TemplateRef<any>, productSold: ProductSold) {
+  confirmDelete(id: string, content: TemplateRef<any>, productSold: ProductSold) {
     console.log(id)
     const modalNg = this.ngModal.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: 'static' });
     modalNg.result.then(result => {
       if (result === 'confirm') {
-         this.updateProduct(productSold)
-         this.delete(id)
+        this.updateProduct(productSold)
+        this.delete(id)
       } else {
         // AQUI QUIERO CERRAR EL MODAL
         modalNg.dismiss()
@@ -49,33 +52,58 @@ export class SaleProductsComponent {
     })
   }
 
-  updateProduct(productSold: ProductSold){
+  updateProduct(productSold: ProductSold) {
     console.log(productSold, "NOT")
-    this.crudService.getById(productSold.product_id.toString(), this.urlp).subscribe(response =>{
-    response.product.stock.outbound -= productSold.stock.outbound!
-    response.product.stock.current_quantity += productSold.stock.outbound
-    response.product.width = Number(response.product.width)
-    response.product.height = Number(response.product.height)
-    response.product.length = Number(response.product.length)
+    this.crudService.getById(productSold.product_id.toString(), this.urlp).subscribe(response => {
+      response.product.stock.outbound -= productSold.stock.outbound!
+      response.product.stock.current_quantity += productSold.stock.outbound
 
-   console.log(response.product, "MODIFIED")
-    this.crudService.upgrade(response.product, this.urlp).subscribe(response =>{
+      // La response trae stock con todos strings
+      response.product.width = Number(response.product.width)
+      response.product.height = Number(response.product.height)
+      response.product.length = Number(response.product.length)
+
+      console.log(response.product, "MODIFIED")
+      this.crudService.upgrade(response.product, this.urlp).subscribe(response => {
         console.log(response, "RP")
+      })
     })
-  })
   }
 
-  delete(id: string){
+  delete(id: string) {
     this.crudService.delete(id, this.url).subscribe(response => {
       console.log(response)
       this.toastr.success('Producto eliminado con éxito')
-      this.crudService.get(this.url).subscribe(response =>{
+      this.crudService.get(this.url).subscribe(response => {
         this.productsSoldList = response.productSold
       })
     })
   }
 
-  getById(id: string) { }
+  confirmUpdateproductSold(productSold: ProductSold, upProductSold: TemplateRef<any>) {
+    console.log(productSold)
+    const modalNg = this.ngModal.open(upProductSold, { ariaLabelledBy: 'modal-basic-title', backdrop: 'static' });
+    this.productSoldModal = productSold;
+    modalNg.result.then(result => {
+      if (result === 'confirm') {
+
+      } else {
+        // AQUI QUIERO CERRAR EL MODAL
+        modalNg.dismiss()
+      }
+    })
+  }
+
+  updateProductSold(productSold: ProductSold) {
+    console.log(productSold, "ANTES DE MOD")
+    productSold.stock.outbound! -= Number(this.errorInput)
+    productSold.stock.current_quantity += Number(this.errorInput)
+
+    console.log(productSold, "ANTES DE UPGRADE")
+    this.crudService.upgradeProductSold(productSold, this.url).subscribe(response => {
+      console.log(response)
+    })
+  }
 
   productSold(addproductSold: TemplateRef<any>) {
     const modalNg = this.ngModal.open(addproductSold, { ariaLabelledBy: 'modal-basic-title', backdrop: 'static' });

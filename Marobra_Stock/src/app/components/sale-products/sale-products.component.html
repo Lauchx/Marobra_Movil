@@ -17,9 +17,12 @@
             <td><b>{{productSold.stock.outbound}}</b></td>
             <td>{{productSold.stock.current_quantity}}</td>
             <td><button id="delete" class="btn"
-                    (click)="productSold.id ? confirmDelete(productSold.id, content, productSold) : null"><b>X</b></button></td>
-            <td><button id="update" class="btn"
-                    (click)="productSold.id ? getById(productSold.id): null"><b>⟳</b></button></td>
+                    (click)="productSold.id ? confirmDelete(productSold.id, content, productSold) : null"><b>X</b></button>
+            </td>
+            <td>
+                <button id="update" class="btn"
+                    (click)="productSold.id ? confirmUpdateproductSold(productSold, upProductSold): null"><b>⟳</b></button>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -47,9 +50,9 @@
                 <div class="modal-body container-fluid">
                     <h1><b>Agregar Producto</b></h1>
                     <div>
-                        <p-dropdown formControlName="dropdown" tyleClass="w-1000rem"
-                           [options]="productsList" optionLabel="name" [showClear]="true" filter="true"
-                            [filterBy]="'name,id'" placeholder="Select a product" [(ngModel)]="selectProduct">
+                        <p-dropdown formControlName="dropdown" tyleClass="w-1000rem" [options]="productsList"
+                            optionLabel="name" [showClear]="true" filter="true" [filterBy]="'name,id'"
+                            placeholder="Select a product" [(ngModel)]="selectProduct">
                         </p-dropdown>
                         <!-- <div *ngIf="selectProduct">
                             Cantidad acutal del  producto: {{selectProduct.stock.current_quantity}}
@@ -64,6 +67,31 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" [disabled]="isDisabledAdd"
                 (click)="addProductSold()"><b>Agregar</b></button>
+        </div>
+    </div>
+</ng-template>
+
+
+
+<ng-template #upProductSold let-modal let-productSold="productSoldModal">
+    <div id="all">
+        <div class="modal-header">
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.close(false)"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="productForm">
+                <div class="modal-body container-fluid">
+                    <h1><b>Actualizar {{productSoldModal?.product?.name}}</b></h1>
+                    <label>Código: {{productSoldModal.product.id}}</label>
+                    <input #errorInput  class="form-control"
+                        placeholder="Error en la cantidad a ventas" type="number" required />
+
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" [disabled]="isDisabledAdd"
+                (click)="updateProductSold(productSoldModal)"><b>Agregar</b></button>
         </div>
     </div>
 </ng-template>
