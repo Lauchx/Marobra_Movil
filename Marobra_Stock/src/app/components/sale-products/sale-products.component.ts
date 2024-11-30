@@ -22,7 +22,7 @@ export class SaleProductsComponent {
   private url = "http://localhost:3000/productsSold"
   private urlp = "http://localhost:3000/products"
 
-  @ViewChild('errorInput') errorInput:  ElementRef
+  @ViewChild('errorInput') errorInput: ElementRef
   constructor(private crudService: CrudService, private formBuilder: FormBuilder, private ngModal: NgbModal, private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -38,13 +38,12 @@ export class SaleProductsComponent {
       outbound: ['', [Validators.required, Validators.min(0)]],
     })
   }
-  confirmDelete(id: string, content: TemplateRef<any>, productSold: ProductSold) {
-    console.log(id)
+  confirmDelete(productSold: ProductSold, content: TemplateRef<any>) {
     const modalNg = this.ngModal.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: 'static' });
     modalNg.result.then(result => {
       if (result === 'confirm') {
-        this.updateProduct(productSold)
-        this.delete(id)
+        this.updateProduct_inDelete(productSold)
+        this.delete(productSold.id!)
       } else {
         // AQUI QUIERO CERRAR EL MODAL
         modalNg.dismiss()
@@ -52,21 +51,22 @@ export class SaleProductsComponent {
     })
   }
 
-  updateProduct(productSold: ProductSold) {
-    console.log(productSold, "NOT")
+  updateProduct_inDelete(productSold: ProductSold) {
     this.crudService.getById(productSold.product_id.toString(), this.urlp).subscribe(response => {
       response.product.stock.outbound -= productSold.stock.outbound!
       response.product.stock.current_quantity += productSold.stock.outbound
-
       // La response trae stock con todos strings
       response.product.width = Number(response.product.width)
       response.product.height = Number(response.product.height)
       response.product.length = Number(response.product.length)
+      this.upgradeProduct(response.product)
+    })
+  }
 
-      console.log(response.product, "MODIFIED")
-      this.crudService.upgrade(response.product, this.urlp).subscribe(response => {
-        console.log(response, "RP")
-      })
+  upgradeProduct(product: Product) {
+    console.log(product, "prod")
+    this.crudService.upgrade(product, this.urlp).subscribe(response => {
+      console.log(response)
     })
   }
 
@@ -81,12 +81,11 @@ export class SaleProductsComponent {
   }
 
   confirmUpdateproductSold(productSold: ProductSold, upProductSold: TemplateRef<any>) {
-    console.log(productSold)
+    console.log(productSold, "stock?", this.productSoldModal)
     const modalNg = this.ngModal.open(upProductSold, { ariaLabelledBy: 'modal-basic-title', backdrop: 'static' });
     this.productSoldModal = productSold;
     modalNg.result.then(result => {
       if (result === 'confirm') {
-
       } else {
         // AQUI QUIERO CERRAR EL MODAL
         modalNg.dismiss()
@@ -95,14 +94,25 @@ export class SaleProductsComponent {
   }
 
   updateProductSold(productSold: ProductSold) {
-    console.log(productSold, "ANTES DE MOD")
-    productSold.stock.outbound! -= Number(this.errorInput)
-    productSold.stock.current_quantity += Number(this.errorInput)
+    console.log(Number(this.errorInput.nativeElement.value))
+    if (Number(this.errorInput.nativeElement.value) > 0) {
+      productSold.stock.outbound! -= Number(this.errorInput.nativeElement.value)
+      productSold.stock.current_quantity += Number(this.errorInput.nativeElement.value)
+      this.crudService.upgradeProductSold(productSold, this.url).subscribe(response => {
+        console.log(response, "Upgrade PS")
+        this.crudService.getById(productSold.product_id.toString(), this.urlp).subscribe(response => {
+        response.product.stock.outbound -= Number(this.errorInput.nativeElement.value)
+        response.product.stock.current_quantity += Number(this.errorInput.nativeElement.value)
 
-    console.log(productSold, "ANTES DE UPGRADE")
-    this.crudService.upgradeProductSold(productSold, this.url).subscribe(response => {
-      console.log(response)
-    })
+        response.product.width = Number(response.product.width)
+        response.product.height = Number(response.product.height)
+        response.product.length = Number(response.product.length)
+        this.upgradeProduct(response.product)
+        })
+      })
+    } else {
+      this.toastr.error("Se debe ingresar un valor numérico, mayor a cero.")
+    }
   }
 
   productSold(addproductSold: TemplateRef<any>) {
