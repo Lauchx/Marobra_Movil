@@ -15,6 +15,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { DropdownModule } from 'primeng/dropdown';
 import { HistoricalComponent } from './components/historical/historical.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HistoricalComponent } from './components/historical/historical.componen
     BrowserAnimationsModule, 
     ToastrModule.forRoot(),
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    AgGridModule
   ],
   providers: [
     provideAnimationsAsync()
