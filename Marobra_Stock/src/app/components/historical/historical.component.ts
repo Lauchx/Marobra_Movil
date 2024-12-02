@@ -3,37 +3,56 @@ import { ColDef } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { CrudService } from '../../services/crud.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-historical',
   templateUrl: './historical.component.html',
   styleUrl: './historical.component.css'
 })
 export class HistoricalComponent {
-  private url = "http://localhost:3000/historical"
+  private url = "http://localhost:3000/productSold/"
   private historicalList: any[] = [];
-  async ngOnInit() {
-    this.crudService.get(this.url).subscribe(response => {
-      console.log(response)
-      this.historicalList = response.historical
-      console.log(this.historicalList, "bobob")
-      const newRowData = [...this.rowData];
-      this.historicalList.forEach(item => newRowData.push(item));
-      this.rowData = newRowData;
-    })
+  ngOnInit() {
+    this.fillTable()
   }
   colDefs: ColDef[] = [
     { field: "id", filter: true },
     { field: "product_id", filter: true },
-    { field: "date", filter: true },
-    { field: "id_Stock", filter: true },
+    { field: "createdAt", filter: true },
+    { field: "id_stock", filter: true },
   ];
-  rowData = [{ id: "fdffaaa", product_id: "tornillo", date: "2023", id_Stock: "2" },]
-  constructor(private crudService: CrudService) { }
+  rowData = [{ id: "fdffaaa", product_id: "tornillo", createdAt: "2023", id_stock: "2" },]
+  constructor(private crudService: CrudService, private toastr: ToastrService) { }
 
   fillTable() {
-    console.log(this.historicalList, "d")
-    for (let i = 0; i < this.historicalList.length; i++) {
-      this.rowData.push(this.historicalList[i])
-    }
+    this.crudService.get(this.url).subscribe(
+      {
+        next: (response) => {
+          console.log(response.status, "status")
+          if (response.status >= 200 && response.status < 300) {
+
+            this.historicalList = response.historical
+            const newRowData = [...this.rowData];
+            this.historicalList.forEach(item => newRowData.push(item));
+            this.rowData = newRowData;
+          }
+          else {
+            console.log("else")
+            this.toastr.error("response.historical")
+          }
+        },
+        error:(error) =>{
+          console.log(error)
+          this.toastr.error(error.error.historical)
+        }
+      })
+  }
+
+  selectMonth(event: Event): void {
+    this.url = "http://localhost:3000/productSold/"
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    this.url += selectedValue
+    this.fillTable()
+
   }
 }
