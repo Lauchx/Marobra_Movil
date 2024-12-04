@@ -11,8 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let productSold of productsSoldList" id="{{productSold.id}}">
-            <td>{{productSold.product_id}}</td>
+        <tr *ngFor="let productSold of productsSoldList" id="{{productSold.id}}">            <td>{{productSold.product_id}}</td>
             <td class="prod-name"><b>{{productSold.product.name}}</b></td>
             <td><b>{{productSold.stock.outbound}}</b></td>
             <td>{{productSold.stock.current_quantity}}</td>

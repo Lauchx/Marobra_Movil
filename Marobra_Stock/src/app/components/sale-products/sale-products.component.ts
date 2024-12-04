@@ -19,16 +19,20 @@ export class SaleProductsComponent {
   public productForm: FormGroup
   public selectProduct: Product
   public productSoldModal: ProductSold
-  private url = "http://localhost:3000/productsSold"
+  private url = "http://localhost:3000/"
   private urlp = "http://localhost:3000/products"
 
   @ViewChild('errorInput') errorInput: ElementRef
   constructor(private crudService: CrudService, private formBuilder: FormBuilder, private ngModal: NgbModal, private toastr: ToastrService) { }
 
   ngOnInit() {
+    let date = new Date()
+    console.log(date.getMonth())
+    this.url = `http://localhost:3000/productSold/${date.getMonth() + 1}`
+    console.log(this.url)
     this.crudService.get(this.url).subscribe(response => {
       console.log(response)
-      this.productsSoldList = response.productSold
+      this.productsSoldList = response.historical
     })
     this.crudService.get(this.urlp).subscribe(response => {
       this.productsList = response.products
@@ -37,6 +41,8 @@ export class SaleProductsComponent {
       dropdown: ['', [Validators.required]], // la advertencia que salta es porque usamos form y ngmodel en el html
       outbound: ['', [Validators.required, Validators.min(0)]],
     })
+    this.url = "http://localhost:3000/productsSold"
+   
   }
   confirmDelete(productSold: ProductSold, content: TemplateRef<any>) {
     const modalNg = this.ngModal.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: 'static' });
@@ -50,7 +56,6 @@ export class SaleProductsComponent {
       }
     })
   }
-
   updateProduct_inDelete(productSold: ProductSold) {
     this.crudService.getById(productSold.product_id.toString(), this.urlp).subscribe(response => {
       response.product.stock.outbound -= productSold.stock.outbound!

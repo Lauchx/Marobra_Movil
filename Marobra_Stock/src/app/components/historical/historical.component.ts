@@ -11,10 +11,10 @@ import { ProductSold } from '../../modules/productSold';
   styleUrl: './historical.component.css'
 })
 export class HistoricalComponent {
-  private url = "http://localhost:3000/productSold/"
+  private url = "http://localhost:3000/productsSold/"
   private historicalList: ProductSold[] = [];
   colDefs: ColDef[] = [
-    { field: "product_id", filter: true, headerName: "Id"},
+    { field: "product_id", filter: true, headerName: "Código"},
     { 
       headerName: "Nombre del producto", 
       valueGetter: (params) => params.data.product?.name,
