@@ -21,18 +21,17 @@ export class SaleProductsComponent {
   public productSoldModal: ProductSold
   private url = "http://localhost:3000/"
   private urlp = "http://localhost:3000/products"
-
+  private ifSameMonth = true
   @ViewChild('errorInput') errorInput: ElementRef
   constructor(private crudService: CrudService, private formBuilder: FormBuilder, private ngModal: NgbModal, private toastr: ToastrService) { }
 
   ngOnInit() {
     let date = new Date()
-    console.log(date.getMonth())
     this.url = `http://localhost:3000/productSold/${date.getMonth() + 1}`
-    console.log(this.url)
     this.crudService.get(this.url).subscribe(response => {
       console.log(response)
       this.productsSoldList = response.historical
+      if(this.productsSoldList.length <=0) this.ifSameMonth = false
     })
     this.crudService.get(this.urlp).subscribe(response => {
       this.productsList = response.products
@@ -104,7 +103,6 @@ export class SaleProductsComponent {
       productSold.stock.outbound! -= Number(this.errorInput.nativeElement.value)
       productSold.stock.current_quantity += Number(this.errorInput.nativeElement.value)
       this.crudService.upgradeProductSold(productSold, this.url).subscribe(response => {
-        console.log(response, "Upgrade PS")
         this.crudService.getById(productSold.product_id.toString(), this.urlp).subscribe(response => {
         response.product.stock.outbound -= Number(this.errorInput.nativeElement.value)
         response.product.stock.current_quantity += Number(this.errorInput.nativeElement.value)
@@ -140,7 +138,6 @@ export class SaleProductsComponent {
         const outbound = this.productForm.get('outbound')?.value
         const current_quantity = this.selectProduct.stock.current_quantity - outbound
         if (current_quantity >= 0) {
-
           this.selectProduct.height = Number(this.selectProduct.height)
           this.selectProduct.length = Number(this.selectProduct.length)
           this.selectProduct.width = Number(this.selectProduct.width)
@@ -148,7 +145,8 @@ export class SaleProductsComponent {
           this.selectProduct.stock.outbound += outbound
           this.selectProduct.stock.current_quantity = current_quantity
           this.crudService.upgrade(this.selectProduct, this.urlp).subscribe(response => { })
-          const ifExistPS = this.productsSoldList.filter(productSold => productSold.product.id === this.selectProduct.id)
+          const ifExistPS = this.productsSoldList.filter(productSold => productSold.product.id === this.selectProduct.id) // el problema es que vos agregas y chequea si existe un product Sold con el product_id
+          // en lugar de esto aca tendria que ir el ifSameMonth (creo) 
           if (ifExistPS.length === 0) {
             let date = new Date()
             const isoDate = date.toISOString()
@@ -192,8 +190,6 @@ export class SaleProductsComponent {
 
             // codigo  para actualizar
             this.crudService.upgradeProductSold(ifExistPS[0], this.url).subscribe(response => {
-              console.log("h")
-              console.log(response)
               if (response.status >= 200 && response.status <= 299) {
                 this.crudService.get(this.url).subscribe(response => {
                   console.log(response)
