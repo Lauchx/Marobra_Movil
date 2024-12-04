@@ -163,6 +163,7 @@ export class SaleProductsComponent {
                   if (response.status >= 200 && response.status <= 299) {
                     this.crudService.get(this.url).subscribe(response => {
                       this.productsSoldList = response.productSold
+                      console.log(this.productsSoldList)
                     })
                     this.toastr.success('Agregaste el producto', 'Exito')
                     this.selectProduct = new Product()

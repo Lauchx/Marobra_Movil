@@ -4,6 +4,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { CrudService } from '../../services/crud.service';
 import { ToastrService } from 'ngx-toastr';
+import { ProductSold } from '../../modules/productSold';
 @Component({
   selector: 'app-historical',
   templateUrl: './historical.component.html',
@@ -11,26 +12,40 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HistoricalComponent {
   private url = "http://localhost:3000/productSold/"
-  private historicalList: any[] = [];
-  ngOnInit() {
-    this.fillTable()
-  }
+  private historicalList: ProductSold[] = [];
   colDefs: ColDef[] = [
-    { field: "id", filter: true },
-    { field: "product_id", filter: true },
+    { field: "product_id", filter: true, headerName: "Id"},
+    { 
+      headerName: "Nombre del producto", 
+      valueGetter: (params) => params.data.product?.name,
+      filter: true
+    },
     { field: "createdAt", filter: true },
-    { field: "id_stock", filter: true },
+    { 
+      headerName: "Ventas", 
+      valueGetter: (params) => params.data.stock?.outbound,
+      filter: true
+    },
+    { 
+      headerName: "Compras", 
+      valueGetter: (params) => params.data.stock?.inbound,
+      filter: true
+    },
+    { 
+      headerName: "Cantidad actual", 
+      valueGetter: (params) => params.data.stock?.current_quantity,
+      filter: true
+    },
   ];
-  rowData = [{ id: "fdffaaa", product_id: "tornillo", createdAt: "2023", id_stock: "2" },]
+  rowData = [{},]
   constructor(private crudService: CrudService, private toastr: ToastrService) { }
 
   fillTable() {
     this.crudService.get(this.url).subscribe(
       {
         next: (response) => {
-          console.log(response.status, "status")
+          this.rowData = [{}]
           if (response.status >= 200 && response.status < 300) {
-
             this.historicalList = response.historical
             const newRowData = [...this.rowData];
             this.historicalList.forEach(item => newRowData.push(item));
